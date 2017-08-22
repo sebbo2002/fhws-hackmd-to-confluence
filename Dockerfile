@@ -2,6 +2,8 @@ FROM node:alpine
 RUN mkdir -p "/app"
 
 WORKDIR "/app"
+ADD "./.jshintignore" "/app/.jshintignore"
+ADD "./.jshintrc" "/app/.jshintrc"
 ADD "./package.json" "/app/package.json"
 RUN npm install
 

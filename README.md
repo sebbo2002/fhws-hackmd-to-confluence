@@ -1,4 +1,4 @@
-# FHWS Grades Push
+# HackMD ➡ Confluence
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Status](https://git-badges.sebbo.net/65/master/build)](https://git.sebbo.net/fhws/hackmd-to-confluence/pipelines)

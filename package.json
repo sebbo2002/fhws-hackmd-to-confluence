@@ -1,0 +1,21 @@
+{
+  "name": "fhws-hackmd-to-confluence",
+  "version": "0.1.0",
+  "description": "Export a HackMD Pad to Confluence…",
+  "main": "app.js",
+  "author": "Sebastian Pekarek <mail@sebbo.net>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fhws/hackmd-to-confluence.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.5.0",
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.81.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
+}

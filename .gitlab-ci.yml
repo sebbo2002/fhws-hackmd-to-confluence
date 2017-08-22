@@ -1,0 +1,48 @@
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - docker login -u "gitlab-ci-token" -p "${CI_BUILD_TOKEN}" docker.sebbo.net
+    - docker build -t docker.sebbo.net/fhws/hackmd-to-confluence .
+    - docker run --rm docker.sebbo.net/fhws/hackmd-to-confluence ./node_modules/jshint/bin/jshint ./*.js
+    - docker push docker.sebbo.net/fhws/hackmd-to-confluence
+  only:
+    - master
+
+publish_github:
+  stage: build
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/fhws-hackmd-to-confluence.git" --all
+    - git push "https://${GITHUB_AUTH}@github.com/sebbo2002/fhws-hackmd-to-confluence.git" --tags
+
+deploy:
+  stage: deploy
+  tags:
+    - matt.sebbo.net
+    - ssh
+  environment:
+    name: production
+  script:
+    - docker login -u "gitlab-ci-token" -p "${CI_BUILD_TOKEN}" docker.sebbo.net
+    - docker pull docker.sebbo.net/fhws/hackmd-to-confluence
+  only:
+    - master
+
+trigger_dockerhub:
+  stage: deploy
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - curl -X "POST" "https://registry.hub.docker.com/u/sebbo2002/fhws-hackmd-to-confluence/trigger/faaea673-1140-4e9d-a2d4-5258a3d58265/"
+  only:
+    - master

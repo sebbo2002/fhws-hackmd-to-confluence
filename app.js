@@ -46,6 +46,9 @@ async.waterfall([
 				return cb(err);
 			}
 
+			// convert to XHTML
+			body = require('xhtml-purifier').purify(body);
+
 			cb(null, body);
 		});
 	},
@@ -80,9 +83,13 @@ async.waterfall([
 					number: version + 1
 				}
 			}
-		}, function (err) {
+		}, function (err, html, body) {
 			if (err) {
 				return cb(err);
+			}
+
+			if(!body.id || body.statusCode) {
+				console.log('Couldn\'t update content:', body.message || body);
 			}
 		});
 	}

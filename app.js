@@ -32,6 +32,12 @@ async.waterfall([
 
 		cb(null, $('#doc').text().trim());
 	},
+	function filterMardDown (md, cb) {
+		// filter ::: boxes
+		md = md.replace(/(:::(?:success|info|warning|danger)[\n]?[\s\S]+?(?=:::):::[\n]?)/gm, '');
+
+		cb(null, md);
+	},
 	function generateRealHTML (md, cb) {
 		request.post({
 			uri: 'https://api.github.com/markdown/raw',

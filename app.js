@@ -32,9 +32,14 @@ async.waterfall([
 
 		cb(null, $('#doc').text().trim());
 	},
-	function filterMardDown (md, cb) {
+	function filterMarkdown (md, cb) {
 		// filter ::: boxes
 		md = md.replace(/(:::(?:success|info|warning|danger)[\n]?[\s\S]+?(?=:::):::[\n]?)/gm, '');
+
+		// filter source code
+		md = md.replace(/```\s*\w*([^`]+)```/g, function(_, code) {
+			return '<code><pre>' + code.trim() + '</pre></code>';
+		});
 
 		cb(null, md);
 	},

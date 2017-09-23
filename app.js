@@ -57,6 +57,14 @@ async.waterfall([
 				return cb(err);
 			}
 
+			// fix headlines
+			body = body.replace(
+				/<h(\d)>\s*<a id="user-content-([^"]+)[^\/]+><span>[^<]+<\/span><\/a>([^\/]+)<\/h\d>/g,
+				function(_, h, id, text) {
+					return '<h' + h + '><a id="' + id + '" href="#' + id + '">' + text + '</a>';
+				}
+			);
+
 			// convert to XHTML
 			body = require('xhtml-purifier').purify(body);
 

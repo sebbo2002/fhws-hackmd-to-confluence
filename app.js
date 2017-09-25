@@ -61,7 +61,7 @@ async.waterfall([
 			body = body.replace(
 				/<h(\d)>\s*<a id="user-content-([^"]+)[^\/]+><span>[^<]+<\/span><\/a>([^\/]+)<\/h\d>/g,
 				function(_, h, id, text) {
-					return '<h' + h + '><a id="' + id + '" href="#' + id + '">' + text + '</a>';
+					return '<h' + h + '><a id="' + id + '" href="#' + id + '">' + text + '</a></h' + h + '>';
 				}
 			);
 

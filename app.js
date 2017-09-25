@@ -59,7 +59,7 @@ async.waterfall([
 
 			// fix headlines
 			body = body.replace(
-				/<h(\d)>\s*<a id="user-content-([^"]+)[^\/]+><span>[^<]+<\/span><\/a>([^\/]+)<\/h\d>/g,
+				/<h(\d)>\s*<a id="user-content-([^"]+)[^\/]+><span>[^<]+<\/span><\/a>(.*)\s*<\/h\d>/g,
 				function(_, h, id, text) {
 					return '<h' + h + '><a id="' + id + '" href="#' + id + '">' + text + '</a></h' + h + '>';
 				}
